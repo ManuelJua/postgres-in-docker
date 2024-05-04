@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  postgres:
+    build: .
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=platzimovies
+  admin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=manuelalejandrojuarez@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=pgAdmincito
+    restart: always
+    ports:
+      - "8888:80"
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
+
+volumes:
+  pgdata:
+  pgadmindata:
